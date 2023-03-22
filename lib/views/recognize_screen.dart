@@ -24,22 +24,11 @@ class _RecognizeScreenState extends State<RecognizeScreen> {
 
   void _processImage(InputImage image) async {
     setState(() => _isBusy = true);
-
     final TextRecognizer textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
     final RecognizedText recognizedText = await textRecognizer.processImage(_inputImage);
-    for (TextBlock block in recognizedText.blocks) {
-      final List<Offset> cornerPoints = block.cornerPoints.cast<Offset>();
-      final String text = block.text;
-      final List<String> languages = block.recognizedLanguages;
-
-      for (TextLine line in block.lines) {
-        for (TextElement element in line.elements) {
-          print(element.text);
-        }
-      }
-    }
 
     setState(() => text = recognizedText.text);
+
     textRecognizer.close();
 
     setState(() => _isBusy = false);
@@ -49,7 +38,12 @@ class _RecognizeScreenState extends State<RecognizeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(_title), centerTitle: false),
-      body: _isBusy ? const Center(child: CircularProgressIndicator()) : Text(text),
+      body: _isBusy
+          ? const Center(child: CircularProgressIndicator())
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SingleChildScrollView(child: Text(text)),
+            ),
     );
   }
 }
