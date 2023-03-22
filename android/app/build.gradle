@@ -47,10 +47,12 @@ android {
         applicationId "com.example.ocr_flutter"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        minSdkVersion 21 //*** This is the part that needs to be changed, previously was 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -68,4 +70,9 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.mlkit:text-recognition-chinese:16.0.0-beta5'
+    implementation 'com.google.mlkit:text-recognition-devanagari:16.0.0-beta5'
+    implementation 'com.google.mlkit:text-recognition-japanese:16.0.0-beta5'
+    implementation 'com.google.mlkit:text-recognition-korean:16.0.0-beta5'
 }
+
